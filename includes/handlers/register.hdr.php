@@ -26,7 +26,9 @@ if (isset($_POST['registerSubmit'])) {
     $confirmPassword = sanitizeRegisterText($_POST['registerConfirmPassword'], FALSE, FALSE);
 
     $isSuccessful = $account->register($username, $firstname, $lastname, $email, $confirmEmail, $password, $confirmPassword);
+    
     if ($isSuccessful) {
+        $_SESSION[Constants::$session_loggedin] = $username;
         header('Location: index.php');
     }
 

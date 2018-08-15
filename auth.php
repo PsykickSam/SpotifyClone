@@ -2,10 +2,15 @@
 
 include ('includes/utilities/utils.php');
 
+include ('includes/db/db_connect.php');
+include ('includes/db/query.php');
+
 include ('includes/classes/Constants.php');
 include ('includes/classes/Accounts.php');
 
-$account = new Account();
+$db = new Connection();
+$querier = new Query();
+$account = new Account($db->connection(), $db->db_tables(), $querier);
 
 // includes -> handlers
 include ('includes/handlers/register.hdr.php');
@@ -28,12 +33,13 @@ include ('includes/handlers/login.hdr.php');
             <form id="loginForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                 <h3>Login to your Account</h3>
                 <p>
+                    <?php echo $account->getError(Constants::$loginFailed); ?>
                     <label for="loginUsername">Username</label>
-                    <input type="text" id="loginUsername" name="loginUsername" placeholder="e.g. jhonDoe" required>
+                    <input type="text" id="loginUsername" name="loginUsername" placeholder="e.g. jhonDoe" value="<?php echo Utils::getInputValue('loginUsername'); ?>" required>
                 </p>
                 <p>
                     <label for="loginPassword">Password</label>
-                    <input type="password" id="loginPassword" name="loginPassword" placeholder="Password" required>
+                    <input type="password" id="loginPassword" name="loginPassword" placeholder="Password" value="<?php echo Utils::getInputValue('loginPassword'); ?>" required>
                 </p>
                 <button type="submit" name="loginSubmit">Login</button>
             </form>
@@ -43,6 +49,7 @@ include ('includes/handlers/login.hdr.php');
                 <h3>Register an Account</h3>
                 <p>
                     <?php echo $account->getError(Constants::$usernameCharecters); ?>
+                    <?php echo $account->getError(Constants::$usernameTaken); ?>
                     <label for="registerUsername">Username</label>
                     <input type="text" id="registerUsername" name="registerUsername" placeholder="e.g. jhonDoe" value="<?php echo Utils::getInputValue('registerUsername'); ?>" required>
                 </p>
@@ -59,6 +66,7 @@ include ('includes/handlers/login.hdr.php');
                 <p>
                     <?php echo $account->getError(Constants::$emailNotMatch); ?>
                     <?php echo $account->getError(Constants::$emailNotValid); ?>
+                    <?php echo $account->getError(Constants::$emailTaken); ?>
                     <label for="registerEmail">Email</label>
                     <input type="email" id="registerEmail" name="registerEmail" placeholder="Email" value="<?php echo Utils::getInputValue('registerEmail'); ?>" required>
                 </p>

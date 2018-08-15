@@ -16,6 +16,14 @@ if (isset($_POST['loginSubmit'])) {
 
     $username = sanitizeLoginText($_POST['loginUsername'], TRUE);
     $password = sanitizeLoginText($_POST['loginPassword'], FALSE);
+
+    $result = $account->login($username, $password);
+
+    if ($result) {
+        $_SESSION[Constants::$session_loggedin] = $username;
+
+        header("Location: index.php");
+    }
     
 }
 

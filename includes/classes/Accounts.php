@@ -1,17 +1,49 @@
 <?php
 
+define('SALTSHA512', '$6$rounds=5000$usesomesillystringforsalt$');
+
 class Account {
 
     private $errorList;
+    private $conn;
+    private $db_tables;
+    private $querier;
 
-    public function __construct() {
+    public function __construct($conn, $db_tables, $querier) {
         $this->errorList = array();
+        $this->conn = $conn;
+        $this->db_tables = $db_tables;
+        $this->querier = $querier;
     }
 
     // public
     /**
+     * Login
+     * params: username password
+     * return: TRUE/FALSE
+     */
+    public function login($uname, $pwd) {
+        $hash = crypt($pwd, SALTSHA512);
+
+        $conditions = array("andBetweenUsernamePassword");
+        $query = array(
+            $this->db_tables::$users['columns']['uname']=>$uname, 
+            $conditions[0]=>"AND", 
+            $this->db_tables::$users['columns']['paswd']=>$hash
+        );
+        $sql = $this->querier::get($this->db_tables::$users['table'], $query, $conditions, array());
+        $result = mysqli_query($this->conn, $sql);
+        
+        if (mysqli_num_rows($result) == 1) {
+            return true;
+        }
+        array_push($this->errorList, Constants::$loginFailed);
+        return false;
+    }
+
+    /**
      * Register
-     * params: Username, Firstname, Lastname, Email, Confirm Email, Password, Confirm Password
+     * params: username, firstname, lastname, email, confirm email, password, confirm password
      * return: TRUE/FALSE
      */
     public function register($uname, $fname, $lname, $email, $cemail, $pwd, $cpwd) 
@@ -23,8 +55,8 @@ class Account {
         $this->validatePasword($pwd, $cpwd);
 
         if (empty($this->errorList)) {
-            // TODO: insert into database
-            return true;
+            // add user data database
+            return $this->addUserDetails($uname, $fname, $lname, $email, $pwd);
         } else {
             return false;
         }
@@ -32,7 +64,7 @@ class Account {
 
     /**
      * Get Errors
-     * params: Error
+     * params: error
      * return: Error message with span(Tag)
      */
     public function getError($error)
@@ -43,7 +75,27 @@ class Account {
         return "<span class='errorMessage'>$error</span>";
     }
 
-    // private --> (START | ->, when | END)
+    // private 
+    // --> Methods
+    /**
+     * Insert user details
+     * params: username, firstname, lastname, email, password
+     * return: 
+     */
+    private function addUserDetails($uname, $fname, $lname, $email, $pwd)
+    {
+        $hash = crypt($pwd, SALTSHA512);
+        $profilePic = "assets/images/profile-pics/default.png";
+        $date = date("Y-m-d");
+
+        $values = array('', $uname, $fname, $lname, $email, $hash, $profilePic, $date);
+        $sql = $this->querier::add($this->db_tables::$users['table'], $values);
+
+        $result = mysqli_query($this->conn, $sql);
+        return $result;
+    }
+
+    // --> Validations
     /**
      * Validata username
      * Check: lenth, isExists
@@ -56,7 +108,13 @@ class Account {
             return;
         }
 
-        # TODO: is username exists
+        $query = array($this->db_tables::$users['columns']['uname']=>$uname);
+        $sql = $this->querier::get($this->db_tables::$users['table'], $query, array(), array());
+        $checkUsername = mysqli_query($this->conn, $sql);
+        if (mysqli_num_rows($checkUsername) != 0) {
+            array_push($this->errorList, Constants::$usernameTaken);
+            return;
+        }
     }
 
     /**
@@ -104,7 +162,13 @@ class Account {
             return;
         }
 
-        # TODO: is email exists
+        $query = array($this->db_tables::$users['columns']['email']=>$email);
+        $sql = $this->querier::get($this->db_tables::$users['table'], $query, array(), array());
+        $checkEmail = mysqli_query($this->conn, $sql);
+        if (mysqli_num_rows($checkEmail) != 0) {
+            array_push($this->errorList, Constants::$emailTaken);
+            return;
+        }
     }
 
      /**
