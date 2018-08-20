@@ -4,14 +4,13 @@ class Constants {
 
     // 
     public static $session_loggedin = "userLoggedIn";
-    
 
     // 
-    public static $passwordNotMatch = "Passwords dont't not match.";
+    public static $passwordNotMatch = "Passwords are not matching.";
     public static $passwordNotAlphanumeric = "Password only contains numbers and letters.";
     public static $passwordCharecters = "Password must have atleast 6 charecters.";
 
-    public static $emailNotMatch = "Emails dont't not match.";
+    public static $emailNotMatch = "Emails are not matching.";
     public static $emailNotValid = "Email is not valid.";
     public static $emailTaken = "Email is already exists, taken by other user.";
     
