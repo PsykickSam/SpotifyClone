@@ -5,8 +5,8 @@ include ('includes/utilities/utils.php');
 include ('includes/db/db_connect.php');
 include ('includes/db/query.php');
 
-include ('includes/classes/Constants.php');
-include ('includes/classes/Accounts.php');
+include ('includes/classes/Constant.php');
+include ('includes/classes/Account.php');
 
 $db = new Connection();
 $querier = new Query();
@@ -63,7 +63,7 @@ include ('includes/handlers/login.hdr.php');
                     <form id="loginForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                         <h2>Login to your Account</h2>
                         <p>
-                            <?php echo $account->getError(Constants::$loginFailed); ?>
+                            <?php echo $account->getError(Constant::$loginFailed); ?>
                             <label for="loginUsername">Username</label>
                             <input type="text" id="loginUsername" name="loginUsername" placeholder="e.g. jhonDoe" value="<?php echo Utils::getInputValue('loginUsername'); ?>" required>
                         </p>
@@ -83,25 +83,25 @@ include ('includes/handlers/login.hdr.php');
                     <form id="registerForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                         <h2>Register an Account</h2>
                         <p>
-                            <?php echo $account->getError(Constants::$usernameCharecters); ?>
-                            <?php echo $account->getError(Constants::$usernameTaken); ?>
+                            <?php echo $account->getError(Constant::$usernameCharecters); ?>
+                            <?php echo $account->getError(Constant::$usernameTaken); ?>
                             <label for="registerUsername">Username</label>
                             <input type="text" id="registerUsername" name="registerUsername" placeholder="e.g. jhonDoe" value="<?php echo Utils::getInputValue('registerUsername'); ?>" required>
                         </p>
                         <p>
-                            <?php echo $account->getError(Constants::$firstnameCharecters); ?>
+                            <?php echo $account->getError(Constant::$firstnameCharecters); ?>
                             <label for="registerFirstName">First Name</label>
                             <input type="text" id="registerFirstName" name="registerFirstName" placeholder="e.g. Jhon" value="<?php echo Utils::getInputValue('registerFirstName'); ?>" required>
                         </p>
                         <p>
-                            <?php echo $account->getError(Constants::$lastnameCharecters); ?>    
+                            <?php echo $account->getError(Constant::$lastnameCharecters); ?>    
                             <label for="registerLastName">Last Name</label>
                             <input type="text" id="registerLastName" name="registerLastName" placeholder="e.g. Doe" value="<?php echo Utils::getInputValue('registerLastName'); ?>" required>
                         </p>
                         <p>
-                            <?php echo $account->getError(Constants::$emailNotMatch); ?>
-                            <?php echo $account->getError(Constants::$emailNotValid); ?>
-                            <?php echo $account->getError(Constants::$emailTaken); ?>
+                            <?php echo $account->getError(Constant::$emailNotMatch); ?>
+                            <?php echo $account->getError(Constant::$emailNotValid); ?>
+                            <?php echo $account->getError(Constant::$emailTaken); ?>
                             <label for="registerEmail">Email</label>
                             <input type="email" id="registerEmail" name="registerEmail" placeholder="Email" value="<?php echo Utils::getInputValue('registerEmail'); ?>" required>
                         </p>
@@ -110,9 +110,9 @@ include ('includes/handlers/login.hdr.php');
                             <input type="email" id="registerConfirmEmail" name="registerConfirmEmail" placeholder="Confirm Email" value="<?php echo Utils::getInputValue('registerConfirmEmail'); ?>" required>
                         </p>
                         <p>
-                            <?php echo $account->getError(Constants::$passwordNotMatch); ?>
-                            <?php echo $account->getError(Constants::$passwordNotAlphanumeric); ?>
-                            <?php echo $account->getError(Constants::$passwordCharecters); ?>
+                            <?php echo $account->getError(Constant::$passwordNotMatch); ?>
+                            <?php echo $account->getError(Constant::$passwordNotAlphanumeric); ?>
+                            <?php echo $account->getError(Constant::$passwordCharecters); ?>
                             <label for="registerPassword">Password</label>
                             <input type="password" id="registerPassword" name="registerPassword" placeholder="Password" value="<?php echo Utils::getInputValue('registerPassword'); ?>" required>
                         </p>

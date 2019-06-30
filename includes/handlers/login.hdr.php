@@ -20,7 +20,7 @@ if (isset($_POST['loginSubmit'])) {
     $result = $account->login($username, $password);
 
     if ($result) {
-        $_SESSION[Constants::$session_loggedin] = $username;
+        $_SESSION[Constant::$session_loggedin] = $username;
 
         header("Location: index.php");
     }

@@ -1,28 +1,33 @@
-<?php
+<?php include("pages/index/header.php") ?>
 
-include ('includes/classes/Constants.php');
-session_start();
+<h1 class="pageHeadingBig">You might also like</h1>
 
-if (isset($_SESSION[Constants::$session_loggedin])) {
-    $userLoggedIn = $_SESSION[Constants::$session_loggedin];
-    echo $userLoggedIn;
-    
-    session_destroy(); 
-} else {
-    header("Location: auth.php");
-}
+<div class="gridViewContainer">
 
-?>
+    <?php
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Welcome to Spotify</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-    
-</body>
-</html>
+        $query = $querier::get($table::$albums['table'], array(), array(), array()) . " ORDER BY RAND() LIMIT 10";
+        $result = mysqli_query($db->connection(), $query);
+
+        while ($row = mysqli_fetch_array($result)) {
+            $id = $row[$table::$albums['columns']['_id']];
+            $title = $row[$table::$albums['columns']['title']];
+            $artwork = $row[$table::$albums['columns']['artwork_path']];
+
+            echo 
+            "
+                <div class='gridViewItem'>
+                    <a href='album.php?id=$id'>
+                        <img src='$artwork' alt='Album Image'>
+                        <div class='gridViewInfo'>$title</div>
+                    </a>
+                </div>
+
+            ";
+        }
+
+    ?>
+
+</div>
+
+<?php include("pages/index/footer.php") ?>

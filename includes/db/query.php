@@ -17,7 +17,7 @@ class Query {
     
     /**
      * TABLE: Any
-     * do: create sql with params
+     * do: create get sql with params
      * params: table, array, condition, cluse
      * return: string sql
      * how to: table -> name of the table
@@ -31,12 +31,12 @@ class Query {
         $sql = "SELECT * FROM " . $table;
         if (!$params) {
             return $sql;
-        }
+        } 
 
         $sql .= " WHERE ";
         foreach ($params as $key => $value) {
             if (in_array($key, $clause)) {
-                $sql .= " " . $key . " " . $value . " ";          
+                $sql .= " " . $key . " " . $value . " ";        
             } else if (in_array($key, $condtion)) {
                 $sql .= " " . $value . " ";
             } else {
@@ -52,8 +52,16 @@ class Query {
     }
 
     /**
+     * Get with clauses
+     * 
+     */
+    public static function raw($sql) {
+        return $sql;
+    }
+
+    /**
      * TABLE: Any
-     * do: create sql with params
+     * do: create insert sql with params
      * params: table, values
      * return: string sql
      * how to: table -> name of the table 
@@ -73,6 +81,39 @@ class Query {
         return $sql;
     }
 
+    /**
+     * TABLE: Any
+     * do: create update sql with params
+     * params: table, sets, conditions
+     * return: string sql
+     * how to: table -> name of the table 
+     *         values -> array of values need all the columns of table, if empty then use ('')
+     */
+    public static function update($table, $sets, $conditions) {
+        $sql = "UPDATE $table SET ";
+
+        foreach ($sets as $key => $value) {
+            if($value == end($sets)) {
+                $sql .= $key . " = " . $value . "";
+            } else {
+                $sql .= $key . " = " . $value . ", ";
+            }
+        }
+
+        if (!empty($conditions)) {
+            $sql .= " WHERE ";
+            foreach ($conditions as $cKey => $cValue) {
+                if ($cKey == "not") {
+                    $sql .= $cValue[0] . " != " . $cValue[1];
+                } else {
+                    $sql .= $cKey . " = " . $cValue;
+                }
+            }
+        }
+
+        return $sql;
+    }
+
 }
 
-?>
+?> 

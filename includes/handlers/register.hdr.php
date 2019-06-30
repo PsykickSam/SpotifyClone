@@ -28,7 +28,7 @@ if (isset($_POST['registerSubmit'])) {
     $isSuccessful = $account->register($username, $firstname, $lastname, $email, $confirmEmail, $password, $confirmPassword);
     
     if ($isSuccessful) {
-        $_SESSION[Constants::$session_loggedin] = $username;
+        $_SESSION[Constant::$session_loggedin] = $username;
         header('Location: index.php');
     }
 
