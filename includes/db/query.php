@@ -18,7 +18,7 @@ class Query {
     /**
      * TABLE: Any
      * do: create get sql with params
-     * params: table, array, condition, cluse
+     * params: table, array, condition, clause
      * return: string sql
      * how to: table -> name of the table
      *         params -> key-value [0] <-> condition [1] <-> key-value [3] <-> clause [2]

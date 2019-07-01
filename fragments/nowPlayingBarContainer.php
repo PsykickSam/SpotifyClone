@@ -205,16 +205,19 @@
             audioElement.setTrack(track)
             
             $(".trackName span").text(track.title)
+            $(".trackName span").attr("onclick", `openPage("album.php?id=${track.album}")`)
 
             $.post("includes/handlers/ajax/getArtistJson.php", { artistId: track.artist }, function(artist) {
                 var trackArtist = JSON.parse(artist)
                 
-                $(".artistName span").text(trackArtist.name)  
+                $(".artistName span").text(trackArtist.name)
+                $(".artistName span").attr("onclick", `openPage("artist.php?id=${trackArtist._id}")`)
 
                 $.post("includes/handlers/ajax/getAlbumJson.php", { albumId: track.album }, function(album) {
                     var trackAlbum = JSON.parse(album)
 
                     $(".albumLink img").attr("src", trackAlbum.artwork_path)
+                    $(".albumLink img").attr("onclick", `openPage("album.php?id=${trackAlbum._id}")`)
                 })
             })
 
@@ -250,16 +253,16 @@
         <div id="nowPlayingLeft">
             <div class="content">
                 <span class="albumLink">
-                    <img src="https://www.allcolourenvelopes.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/s/q/square-deep-blue-envelopes.jpg" width="57" height="100%" alt="Album Artwork" class="albumArtwork">
+                    <img role="link" tabindex="0" src="https://www.allcolourenvelopes.co.uk/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/s/q/square-deep-blue-envelopes.jpg" width="57" height="100%" alt="Album Artwork" class="albumArtwork">
                 </span>
 
                 <div class="trackInfo">
                     <span class="trackName">
-                        <span>Track Name</span>
+                        <span role="link" tabindex="0">Track Name</span>
                     </span>
 
                     <span class="artistName">
-                        <span>Artist Name</span>
+                        <span role="link" tabindex="0">Artist Name</span>
                     </span>
                 </div>
             </div>

@@ -128,7 +128,7 @@ body {
 }
 
 #nowPlayingLeft .trackInfo .trackName {
-    margin: 6px 0 0;
+    margin: 4px 0 4px;
     display: inline-block;
     width: 100%;
 }
@@ -258,34 +258,34 @@ body {
     white-space: nowrap;
 }
 
-.entryInfo {
+.entityInfo {
     padding: 40px 0 10px 0;
     display: inline-block;
     width: 100%;
 }
 
-.entryInfo .leftSection {
+.entityInfo .leftSection {
     width: 30%;
     float: left;
     max-width: 250px;
 }
 
-.entryInfo .leftSection img {
+.entityInfo .leftSection img {
     width: 100%;
 }
 
-.entryInfo .rightSection {
+.entityInfo .rightSection {
     width: 70%;
     float: left;
     padding: 5px 10px 5px 40px;
     box-sizing: border-box;
 }
 
-.entryInfo .rightSection h2 {
+.entityInfo .rightSection h2 {
     margin-top: 0;
 }
 
-.entryInfo .rightSection p {
+.entityInfo .rightSection p {
     color: #939393;
     font-weight: 200;
 }
@@ -364,12 +364,39 @@ body {
     text-align: right;
 }
 
+.artistInfo {
+    text-align: center;
+}
 
+.button {
+    color: white;
+    cursor: pointer;
+    margin-bottom: 10px;
+    background-color: transparent;
+    font-weight: 500;
+    letter-spacing: 2px;
+    border: 2px solid white;
+    border-radius: 500px;
+    padding: 15px;
+    min-width: 130px;
+}
 
+.button.green {
+    background-color: #2ebd59;
+    border-color: #2ebd59;
+}
 
+.borderBottom {
+    border-bottom: 1px solid #939393;
+    margin-bottom: 20px;
+}
 
+.tracklistContainer h2, 
+.gridViewContainer h2 {
+    text-align: center;
+}
 
-/* Custom Styles */
-.hoverStylePointer {
+/* Role */
+[role="link"] {
     cursor: pointer;
 }
