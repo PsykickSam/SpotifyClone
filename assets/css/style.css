@@ -363,3 +363,13 @@ body {
     float: left;
     text-align: right;
 }
+
+
+
+
+
+
+/* Custom Styles */
+.hoverStylePointer {
+    cursor: pointer;
+}

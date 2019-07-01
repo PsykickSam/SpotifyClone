@@ -1,4 +1,4 @@
-<?php include("pages/index/header.php");
+<?php include("fragments/includedFiles.php");
 
     if (isset($_GET['id'])) {
         $albumId = $_GET['id'];
@@ -68,5 +68,4 @@
 
     </ul>
 </div>
-  
-<?php include("pages/index/footer.php") ?>
+

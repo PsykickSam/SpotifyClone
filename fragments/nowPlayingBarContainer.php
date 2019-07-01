@@ -216,8 +216,6 @@
 
                     $(".albumLink img").attr("src", trackAlbum.artwork_path)
                 })
-
-                playSong()
             })
 
             if (play) {

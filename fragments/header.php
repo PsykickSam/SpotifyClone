@@ -15,13 +15,16 @@ $table = $db->db_tables();
 
 if (isset($_SESSION[Constant::$session_loggedin])) {
     $userLoggedIn = $_SESSION[Constant::$session_loggedin];
+    echo "<script>
+            userLoggedIn = '$userLoggedIn'
+          </script>";
     
     // session_destroy(); 
 } else {
     header("Location: auth.php");
 }
 
-?>
+?> 
 
 <!DOCTYPE html>
 <html>
@@ -41,7 +44,7 @@ if (isset($_SESSION[Constant::$session_loggedin])) {
     <div id="mainContainer">
         
         <div id="topContainer">
-            <?php include('pages/index/navbarContainer.php') ?>
+            <?php include('navbarContainer.php') ?>
 
             <div id="mainViewContainer">
                 <div id="mainContent">
