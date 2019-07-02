@@ -8,6 +8,8 @@ include ('includes/classes/Constant.php');
 include('includes/classes/Artist.php');
 include('includes/classes/Album.php');
 include('includes/classes/Song.php');
+include('includes/classes/User.php');
+include('includes/classes/Playlist.php');
 
 $db = new Connection();
 $querier = new Query();

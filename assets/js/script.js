@@ -30,6 +30,23 @@ function playFirstSong() {
   setTrack(tempPlaylist[0], tempPlaylist, true)
 }
 
+function createPlaylist() {
+  var playlistName = prompt("Please enter the name of the playlist")
+
+  if (playlistName != null) {
+    $.post("includes/handlers/ajax/createPlaylist.php", { playlist_name: playlistName, username: userLoggedIn })
+      .done(function (data) {
+       var json = JSON.parse(data)
+       if (json.type === "error") {
+         alert(json.message)
+         return
+       }
+       
+      openPage("user_music.php")
+    })
+  } 
+}
+
 function formatTime(duration) {
   var time = Math.round(duration)
   
