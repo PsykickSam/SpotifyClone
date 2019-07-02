@@ -210,14 +210,14 @@
             $.post("includes/handlers/ajax/getArtistJson.php", { artistId: track.artist }, function(artist) {
                 var trackArtist = JSON.parse(artist)
                 
-                $(".artistName span").text(trackArtist.name)
-                $(".artistName span").attr("onclick", `openPage("artist.php?id=${trackArtist._id}")`)
+                $(".trackInfo .artistName span").text(trackArtist.name)
+                $(".trackInfo .artistName span").attr("onclick", `openPage("artist.php?id=${trackArtist._id}")`)
 
                 $.post("includes/handlers/ajax/getAlbumJson.php", { albumId: track.album }, function(album) {
                     var trackAlbum = JSON.parse(album)
 
-                    $(".albumLink img").attr("src", trackAlbum.artwork_path)
-                    $(".albumLink img").attr("onclick", `openPage("album.php?id=${trackAlbum._id}")`)
+                    $(".content .albumLink img").attr("src", trackAlbum.artwork_path)
+                    $(".content .albumLink img").attr("onclick", `openPage("album.php?id=${trackAlbum._id}")`)
                 })
             })
 

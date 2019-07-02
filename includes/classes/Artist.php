@@ -15,6 +15,10 @@
             $this->querier = $querier;
         }
 
+        public function getId() {
+            return $this->id;
+        }
+
         public function getName() {
             $query = array(
                 $this->table::$artists['columns']['_id']=>$this->id

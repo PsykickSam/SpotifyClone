@@ -392,9 +392,52 @@ body {
 }
 
 .tracklistContainer h2, 
-.gridViewContainer h2 {
+.gridViewContainer h2,
+.artistContainer h2 {
     text-align: center;
 }
+
+.searchContainer {
+    background-color: #242424;
+    padding: 20px 20px;
+}
+
+.searchContainer h4 {
+    margin: 0;
+    font-weight: 300; 
+}
+
+.searchContainer .searchInput {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 62px;
+    letter-spacing: 3px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.searchResultRow {
+    padding: 15px 10px;
+}
+
+.searchResultRow:hover {
+    background-color: #282828;
+}
+
+.searchResultRow .artistName span {
+    color: white;
+}
+
+.noResults {
+    display: block;
+    margin: 20px 10px;
+}
+
 
 /* Role */
 [role="link"] {

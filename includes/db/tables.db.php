@@ -65,7 +65,7 @@ class Table {
 
     /**
      * Table: albums
-     * columns: 2
+     * columns: 5
      */
     public static $albums = array (
         "table" => "albums",
@@ -75,6 +75,34 @@ class Table {
             "artist" => "artist",
             "genre" => "genre",
             "artwork_path" => "artwork_path",
+        ),
+    );
+
+    /**
+     * Table: playlists
+     * columns: 4
+     */
+    public static $playlists = array (
+        "table" => "playlists",
+        "columns" => array (
+            "_id" => "_id",
+            "name" => "name",
+            "owner" => "owner",
+            "date_created" => "date_created"
+        ),
+    );
+
+    /**
+     * Table: playlist_songs
+     * columns: 4
+     */
+    public static $playlist_songs = array (
+        "table" => "playlist_songs",
+        "columns" => array (
+            "_id" => "_id",
+            "song_id" => "song_id",
+            "playlist_id" => "playlist_id",
+            "playlist_order" => "playlist_order"
         ),
     );
 
