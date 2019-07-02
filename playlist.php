@@ -6,8 +6,7 @@
         header("Location: index.php");
     }
 
-    $album = new Playlist($db->connection(), $playlistId, $table, $querier);
-    $artist = $album->getArtist();
+    $playlist = new Playlist($db->connection(), $playlistId, $table, $querier);
 
 ?>
 
@@ -17,24 +16,25 @@
     </div>
 
     <div class="rightSection">
-        <h2><?php echo $album->getTitle() ?></h2>
-        <p>By <?php echo $artist->getName() ?></p> 
-        <p><?php echo $album->getNumberOfSongs() ?> songs</p>
+        <h2><?php echo $playlist->getName() ?></h2>
+        <p>By <?php echo $playlist->getOwner() ?></p> 
+        <p><?php echo $playlist->getNumberOfSongs() ?> songs</p>
+        <button class="button" onclick="deletePlaylist(<?php echo $playlistId; ?>)">DELETE PLAYLIST</button>
     </div>
 </div>
 
 <div class="tracklistContainer">
     <ul class="tracklist">
         <?php 
-            $songIdArray = $album->getSongIds();
+            $songIdArray = $playlist->getSongIds();
 
             foreach($songIdArray as $index=>$songId) {
-                $albumSong = new Song($db->connection(), $songId, $table, $querier);
+                $playlistSong = new Song($db->connection(), $songId, $table, $querier);
 
-                $songId = $albumSong->getId();
-                $songTitle = $albumSong->getTitle();
-                $songArtist = $albumSong->getArtist()->getName();
-                $songDuration = $albumSong->getDuration();
+                $songId = $playlistSong->getId();
+                $songTitle = $playlistSong->getTitle();
+                $songArtist = $playlistSong->getArtist()->getName();
+                $songDuration = $playlistSong->getDuration();
                 
                 $index += 1;
 

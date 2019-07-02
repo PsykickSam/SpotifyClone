@@ -19,6 +19,7 @@
     $sql = $querier->add($table::$playlists['table'], $values);
 
     $result = mysqli_query($db->connection(), $sql);
+    
     $data = array("type"=>"success", "message"=>"Playlist saved...");
     echo json_encode($data); 
   } else {

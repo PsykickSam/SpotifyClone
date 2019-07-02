@@ -47,6 +47,23 @@ function createPlaylist() {
   } 
 }
 
+function deletePlaylist(playlistId) {
+  var prompt = confirm("Are you sure?")
+
+  if (prompt) {
+    $.post("includes/handlers/ajax/deletePlaylist.php", { playlist_id: playlistId })
+      .done(function (data) {
+        var json = JSON.parse(data)
+        if (json.type === "error") {
+          alert(json.message)
+          return
+        }
+
+        openPage("user_music.php")
+      })
+  }
+}
+
 function formatTime(duration) {
   var time = Math.round(duration)
   

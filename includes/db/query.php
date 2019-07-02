@@ -51,6 +51,30 @@ class Query {
         return $sql;
     }
 
+    public static function getWithOperator($operator, $table, $params, $condtion, $clause) {
+        $sql = "SELECT $operator FROM " . $table;
+        if (!$params) {
+            return $sql;
+        } 
+
+        $sql .= " WHERE ";
+        foreach ($params as $key => $value) {
+            if (in_array($key, $clause)) {
+                $sql .= " " . $key . " " . $value . " ";        
+            } else if (in_array($key, $condtion)) {
+                $sql .= " " . $value . " ";
+            } else {
+                if ($key == "not") {
+                    $sql .= " " . $value[0] . " != '" . $value[1] . "' ";          
+                } else {            
+                    $sql .= " " . $key . " = '" . $value . "' ";          
+                }
+            }
+        }
+
+        return $sql;
+    }
+
     /**
      * Get with clauses
      * 
@@ -83,11 +107,11 @@ class Query {
 
     /**
      * TABLE: Any
-     * do: create update sql with params
+     * do: 
      * params: table, sets, conditions
      * return: string sql
-     * how to: table -> name of the table 
-     *         values -> array of values need all the columns of table, if empty then use ('')
+     * how to: 
+     *         
      */
     public static function update($table, $sets, $conditions) {
         $sql = "UPDATE $table SET ";
@@ -110,6 +134,28 @@ class Query {
                 }
             }
         }
+
+        return $sql;
+    }
+
+    /**
+     * TABLE: Any
+     * do: 
+     * params: table, values
+     * return: string sql
+     * how to: 
+     *         
+     */
+    public static function delete($table, $values) {
+        $sql = "DELETE FROM " . $table . " WHERE (";
+        foreach ($values as $key => $value) {
+            if ($key != count($values) - 1) {
+                $sql .= "'" .$value . "', ";
+                continue;
+            }
+            $sql .= "'" .$value . "'";
+        }
+        $sql .= ")";
 
         return $sql;
     }

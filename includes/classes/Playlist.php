@@ -10,12 +10,24 @@ class Playlist {
     private $querier;
 
     public function __construct($conn, $data, $table, $querier) {
-        $this->conn = $conn;
-        $this->id = $data[$table::$playlists['columns']['_id']];
-        $this->name = $data[$table::$playlists['columns']['name']];
-        $this->owner = $data[$table::$playlists['columns']['owner']];
-        $this->table = $table;
-        $this->querier = $querier;
+      $this->conn = $conn;
+      $this->table = $table;
+      $this->querier = $querier;
+
+      if (!is_array($data)) {
+        $params = array(
+          $this->table::$playlists['columns']['_id']=>$data
+        );
+
+        $sql = $this->querier->get($this->table::$playlists['table'], $params, array(), array());
+
+        $data = mysqli_query($this->conn, $sql);
+        $data = mysqli_fetch_assoc($data);
+      }
+
+      $this->id = $data[$table::$playlists['columns']['_id']];
+      $this->name = $data[$table::$playlists['columns']['name']];
+      $this->owner = $data[$table::$playlists['columns']['owner']];
     }
 
     public function getId() {
@@ -26,12 +38,42 @@ class Playlist {
       return $this->name;
     }
 
-    public function getOnwer() {
+    public function getOwner() {
       return $this->owner;
     }
 
-    
-    
+    public function getNumberOfSongs() {
+      $params = array(
+        $this->table::$playlist_songs['columns']['playlist_id']=>$this->id
+      );
+
+      $sql = $this->querier->get($this->table::$playlist_songs['table'], $params, array(), array());
+      
+      $result = mysqli_query($this->conn, $sql);
+      $numberOfSongs = mysqli_num_rows($result);
+      return $numberOfSongs;
+    }
+
+    public function getSongIds() {
+      $params = array(
+        $this->table::$playlist_songs['columns']['playlist_id']=>$this->id,
+        "ORDER BY"=>$this->table::$playlist_songs['columns']['playlist_order'] . " ASC"
+      );
+
+      $clause = array("ORDER BY");
+
+      $sql = $this->querier->get($this->table::$playlist_songs['table'], $params, array(), $clause);
+      
+      $query = mysqli_query($this->conn, $sql);
+
+      $array = array();
+
+      while($row = mysqli_fetch_array($query)) {
+        array_push($array, $row[$this->table::$playlist_songs['columns']['song_id']]); 
+      }
+
+      return $array;
+    }
 }
 
 ?>

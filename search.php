@@ -170,7 +170,6 @@
                   <div class='gridViewInfo'>$title</div>
               </span>
           </div>
-
       ";
     }
 
