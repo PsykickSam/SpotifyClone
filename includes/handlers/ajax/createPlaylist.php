@@ -3,8 +3,6 @@
   include("../../db/db_connect.php");
   include("../../db/query.php");
 
-  $data = array();
-
   if (isset($_POST['playlist_name']) && isset($_POST['username'])) {
     $name = $_POST['playlist_name'];
     $username = $_POST['username'];

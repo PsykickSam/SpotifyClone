@@ -52,7 +52,8 @@ $artist = new Artist($db->connection(), $artistId, $table, $querier);
                 </div>
 
                 <div class='trackOptions'>
-                    <img class='play' src='assets/images/icons/more.png' />
+                    <input type='hidden' class='songId' value='$songId'>
+                    <img class='optionsButton' src='assets/images/icons/more.png' onclick='showOptionsMenu(this)' />
                 </div>
 
                 <div class='trackDuration'>
@@ -103,3 +104,8 @@ $artist = new Artist($db->connection(), $artistId, $table, $querier);
   ?>
 
 </div>
+
+<nav class="optionsMenu">
+    <input type="hidden" class="songId">
+    <?php echo Playlist::getPlaylistsDropdown($db->connection(), $userLoggedIn->getUserName(), $table, $querier); ?>
+</nav>

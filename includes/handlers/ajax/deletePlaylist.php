@@ -15,8 +15,8 @@
     $valuesPlaylist = array($table::$playlists['columns']['_id']=>$playlistId);
     $valuesSong = array($table::$playlist_songs['columns']['playlist_id']=>$playlistId);
 
-    $sqlPlaylist = $querier::delete($table::$playlists['table'], $valuesPlaylist);
-    $sqlSong = $querier::delete($table::$playlist_songs['table'], $valuesSong);
+    $sqlPlaylist = $querier::delete($table::$playlists['table'], $valuesPlaylist, null);
+    $sqlSong = $querier::delete($table::$playlist_songs['table'], $valuesSong, null);
 
     $playlistQuery = mysqli_query($db->connection(), $sqlPlaylist);
     $songQuery = mysqli_query($db->connection(), $sqlSong);

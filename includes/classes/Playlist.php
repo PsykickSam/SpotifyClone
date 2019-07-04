@@ -74,6 +74,29 @@ class Playlist {
 
       return $array;
     }
+
+    public static function getPlaylistsDropdown($conn, $username, $table, $querier) {
+      $dropdown = '<select name="" id="" class="item playlist">
+                       <option value="">Add to Playlist</option>';
+
+      $operator = $table::$playlists['columns']['_id'] . ", " . 
+                  $table::$playlists['columns']['name'];
+
+      $params = array($table::$playlists['columns']['owner']=>$username);
+
+      $sql = $querier->getWithOperator($operator, $table::$playlists['table'], $params, array(), array());
+
+      $query = mysqli_query($conn, $sql);
+
+      while ($row = mysqli_fetch_array($query)) {
+        $id = $row[$table::$playlists['columns']['_id']];
+        $name = $row[$table::$playlists['columns']['name']];
+        
+        $dropdown .= "<option value='$id'>$name</option>";
+      }
+
+      return $dropdown . '</select>';
+    }
 }
 
 ?>

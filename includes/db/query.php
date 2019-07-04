@@ -146,16 +146,18 @@ class Query {
      * how to: 
      *         
      */
-    public static function delete($table, $values) {
-        $sql = "DELETE FROM " . $table . " WHERE (";
+    public static function delete($table, $values, $andor) {
+        $sql = "DELETE FROM " . $table . " WHERE ";
+        $index = 0;
         foreach ($values as $key => $value) {
-            if ($key != count($values) - 1) {
-                $sql .= "'" .$value . "', ";
+            if ($index != count($values) - 1) {
+                $sql .= $key . " = '" .$value . "' $andor ";
+                $index += 1;
                 continue;
             }
-            $sql .= "'" .$value . "'";
+            $sql .= $key . " = '" .$value . "'";
         }
-        $sql .= ")";
+        $sql .= "";
 
         return $sql;
     }
