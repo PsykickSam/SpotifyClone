@@ -118,9 +118,9 @@ class Query {
 
         foreach ($sets as $key => $value) {
             if($value == end($sets)) {
-                $sql .= $key . " = " . $value . "";
+                $sql .= $key . " = '" . $value . "'";
             } else {
-                $sql .= $key . " = " . $value . ", ";
+                $sql .= $key . " = '" . $value . "', ";
             }
         }
 
@@ -128,9 +128,9 @@ class Query {
             $sql .= " WHERE ";
             foreach ($conditions as $cKey => $cValue) {
                 if ($cKey == "not") {
-                    $sql .= $cValue[0] . " != " . $cValue[1];
+                    $sql .= $cValue[0] . " != '" . $cValue[1] . "'";
                 } else {
-                    $sql .= $cKey . " = " . $cValue;
+                    $sql .= $cKey . " = '" . $cValue . "'";
                 }
             }
         }

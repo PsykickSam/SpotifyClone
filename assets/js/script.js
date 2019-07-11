@@ -22,6 +22,10 @@ $(window).scroll(function() {
   hideOptionsMenu()
 })
 
+$(window).on('popstate', function (event) {
+  // location.reload()
+});
+
 $(document).on("change", "select.playlist", function() {
   var playlistId = $(this).val()
   var songId = $(this).prev(".songId").val()
@@ -53,6 +57,37 @@ function openPage(url) {
   $("#mainContent").load(encodedURL)
   $("body").scrollTop(0)
   history.pushState(null, null, url)
+}
+
+function logout() {
+  $.post("includes/handlers/ajax/logout.php", function() {
+    location.reload()
+  })
+}
+
+function updateEmail(emailClass) {
+  var email = $("." + emailClass).val()
+
+  $.post("includes/handlers/ajax/updateEmail.php", { email: email, username: userLoggedIn })
+  .done(function(response) {
+    $("." + emailClass).nextAll(".message").text(response)
+  })
+}
+
+function updatePassword(oldPasswordClass, confirmPasswordClass, newPasswordClass) {
+  var oldPassword = $("." + oldPasswordClass).val()
+  var confirmPassword = $("." + confirmPasswordClass).val()
+  var newPassword = $("." + newPasswordClass).val()
+
+  $.post("includes/handlers/ajax/updatePassword.php", { 
+    oldPassword: oldPassword, 
+    confirmPassword: confirmPassword, 
+    newPassword: newPassword, 
+    username: userLoggedIn 
+  })
+  .done(function (response) {
+    $("." + oldPasswordClass).nextAll(".message").text(response)
+  })
 }
 
 function playFirstSong() {

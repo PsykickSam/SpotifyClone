@@ -16,9 +16,12 @@ $querier = new Query();
 $table = $db->db_tables();
 
 if (isset($_SESSION[Constant::$session_loggedin])) {
-    $userLoggedIn = $_SESSION[Constant::$session_loggedin];
+    // $userLoggedIn = $_SESSION[Constant::$session_loggedin];
+
+    $userLoggedIn = new User($db->connection(), $_SESSION[Constant::$session_loggedin], $table, $querier);
+    $username = $userLoggedIn->getUserName();
     echo "<script>
-            userLoggedIn = '$userLoggedIn'
+            userLoggedIn = '$username'
           </script>";
     
     // session_destroy(); 

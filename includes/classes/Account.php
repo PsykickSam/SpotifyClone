@@ -1,7 +1,5 @@
 <?php
 
-define('SALTSHA512', '$6$rounds=5000$usesomesillystringforsalt$');
-
 class Account {
 
     private $errorList;
@@ -23,7 +21,7 @@ class Account {
      * return: TRUE/FALSE
      */
     public function login($uname, $pwd) {
-        $hash = crypt($pwd, SALTSHA512);
+        $hash = crypt($pwd, Constant::$SALTSHA512);
 
         $conditions = array("andBetweenUsernamePassword");
         $query = array(
@@ -84,7 +82,7 @@ class Account {
      */
     private function addUserDetails($uname, $fname, $lname, $email, $pwd)
     {
-        $hash = crypt($pwd, SALTSHA512);
+        $hash = crypt($pwd, Constant::$SALTSHA512);
         $profilePic = "assets/images/profile-pics/default.png";
         $date = date("Y-m-d");
 

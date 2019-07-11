@@ -1,6 +1,11 @@
 <?php
 
+
 class Constant {
+
+    // define('SALTSHA512', '$6$rounds=5000$usesomesillystringforsalt$');
+
+    public static $SALTSHA512 = '$6$rounds=5000$usesomesillystringforsalt$';
 
     // 
     public static $session_loggedin = "userLoggedIn";
@@ -22,6 +27,18 @@ class Constant {
     public static $usernameTaken = "Username is already exists, taken by other user.";
     
     public static $loginFailed = "Your username and password is incorrect.";
+
+    public static $usernameEmailNotSet = "Username or Email is not set.";
+    public static $usernameNotDefined = "Username is not defiend. (e.g. Login to your account first)";
+    public static $emailNotDefined = "Email is not defiend. (e.g. Set a valid email first)";
+    public static $emailIsAlreadyInUse = "Email is already in use. (e.g. Set an unique email)";
+
+    public static $userNameAndPasswordNotSet = "Username or Password not set correctly.";
+    public static $passwordEmpty = "Password is empty.";
+    public static $passwordIncorrect = "Password is incorrect.";
+    public static $passwordUpdated = "Password is updated.";
+
+    public static $updateEmailSuccess = "Email has beed updated.";
 
 }
 

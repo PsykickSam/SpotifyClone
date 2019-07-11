@@ -1,10 +1,10 @@
 <?php
 
   if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-    include ('includes/db/db_connect.php');
-    include ('includes/db/query.php');
+    include('includes/db/db_connect.php');
+    include('includes/db/query.php');
 
-    include ('includes/classes/Constant.php');
+    include('includes/classes/Constant.php');
 
     include('includes/classes/Artist.php');
     include('includes/classes/Album.php');
@@ -29,7 +29,6 @@
     $URL = $_SERVER['REQUEST_URI'];
     echo "<script>openPage('$URL')</script>";
     exit();
-
   }
 
 ?>
