@@ -3,5 +3,8 @@ Online Music Application for listening music from the web with PHP. It is like s
 
 ## Useage
 ```
-Need a PHP server to Run with MySql Database
+Need a PHP server (XAMPP, AMPP or Hosting Server) to Run
+```
+```
+MySQL Database setup in includes/db/config.db.php
 ```
